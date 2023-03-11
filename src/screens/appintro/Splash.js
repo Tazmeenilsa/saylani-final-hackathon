@@ -2,10 +2,11 @@ import {StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {Text, Image, StatusBar} from 'native-base';
 import Colors from '../../utilities/Colors';
-const Splash = ({navigation}) => {
+import { reset } from '../../navigations/NavigationService';
+const Splash = () => {
   useEffect(() => {
    setTimeout(() => {
-      navigation.navigate('Login');
+      reset('Login');
     }, 3000);
 
   
