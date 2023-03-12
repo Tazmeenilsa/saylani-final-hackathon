@@ -7,6 +7,7 @@ import Splash from '../screens/appintro/Splash';
 import Signup from '../screens/auth/Signup';
 import Drawer from './Drawer';
 import { isReadyRef, navigationRef } from "./NavigationService";
+import BottomTab from './BottomTab';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +34,7 @@ const Navigation = () => {
         <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
-        <Stack.Screen name="Drawer" component={Drawer} options={{ headerShown: false }} />
+        <Stack.Screen name="Bottom" component={BottomTab} options={{ headerShown: false }} />
         {/* <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/> */}
 
 

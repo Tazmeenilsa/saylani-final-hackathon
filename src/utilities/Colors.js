@@ -1,6 +1,4 @@
 export default {
-  white: '#fff',
- purple: '#701a75',
-  textbtn: '#ffF',
- 
+  green: "#61B846",
+  blue: "#024F9D"
 };

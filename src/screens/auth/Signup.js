@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
-import { Text, Input, Stack, FormControl, Box, Link, Button, Toast } from 'native-base';
-
+import { Text, Input, Stack, FormControl, Box, Link, Button, Toast, Radio, KeyboardAvoidingView } from 'native-base';
 import Colors from '../../utilities/Colors';
 import { goBack, navigate } from '../../navigations/NavigationService';
 import { CreateUser } from './duck/operation';
@@ -10,6 +9,7 @@ const Signup = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [value, setValue] = useState(null);
   const [loading, showLoading] = useState(false);
 
   const signupHandler = () => {
@@ -17,7 +17,9 @@ const Signup = ({ navigation }) => {
       let data = {
         fullName: userName,
         email: email.toLowerCase(),
-        password: password
+        password: password,
+        type: value
+
       }
       showLoading(true)
       CreateUser(data)
@@ -27,7 +29,12 @@ const Signup = ({ navigation }) => {
               description: "Account created successfully"
             })
             showLoading(false)
-            goBack()
+            if (setValue === "saler") {
+              goBack()
+            } else if (setValue === "purchaser") {
+              goBack()
+            }
+goBack()
           }
         })
         .catch((err) => {
@@ -52,68 +59,106 @@ const Signup = ({ navigation }) => {
         height: '100%',
         justifyContent: 'space-around',
       }}>
-      <Box>
-        <Text textAlign="center">register</Text>
-      </Box>
-      <Box bg={Colors.buttonbg} >
-        <FormControl p={5}>
-          <Stack space={6}>
-            <Stack>
-              <FormControl.Label>Username</FormControl.Label>
-              <Input
-                onChangeText={(text) => setUserName(text)}
-                p={2} placeholder="Username" />
-            </Stack>
-            <Stack>
-              <FormControl.Label>Email</FormControl.Label>
-              <Input
-                onChangeText={(text) => setEmail(text)}
-                p={2} placeholder="abc@" />
-            </Stack>
-            <Stack>
-              <FormControl.Label>Password</FormControl.Label>
-              <Input
-                onChangeText={(text) => setPassword(text)}
+      <KeyboardAvoidingView>
+        <Box>
+          <Text textAlign="center" color={Colors.green} fontSize={32} fontWeight="bold">SAYLANI WELFARE</Text>
+          <Text textAlign="center" color={Colors.blue} fontSize={16} fontWeight="bold">ONLINE MARKET PLACE</Text>
+        </Box>
+        <Box ml={3} mr={3} mt={3}>
+          <FormControl p={5}>
+            <Stack space={6}>
+              <Stack>
+                <FormControl.Label>Username</FormControl.Label>
+                <Input
+                  variant="underlined"
+                  onChangeText={(text) => setUserName(text)}
+                  p={2} placeholder="Username" />
+              </Stack>
+              <Stack>
+                <FormControl.Label>Email</FormControl.Label>
+                <Input
+                  variant="underlined"
 
-                p={2} placeholder="Password" />
-            </Stack>
-            <Stack>
-              <FormControl.Label>Confirm Password</FormControl.Label>
-              <Input
-                onChangeText={(text) => setConfirmPassword(text)}
+                  onChangeText={(text) => setEmail(text)}
+                  p={2} placeholder="abc@" />
+              </Stack>
+              <Stack>
+                <FormControl.Label>Password</FormControl.Label>
+                <Input
+                  variant="underlined"
 
-                p={2}
-                placeholder="Confirm Password"
-              />
+                  onChangeText={(text) => setPassword(text)}
+
+                  p={2} placeholder="Password" />
+              </Stack>
+              <Stack>
+                <FormControl.Label>Confirm Password</FormControl.Label>
+                <Input
+                  variant="underlined"
+
+                  onChangeText={(text) => setConfirmPassword(text)}
+
+                  p={2}
+                  placeholder="Confirm Password"
+                />
+              </Stack>
             </Stack>
-          </Stack>
-        </FormControl>
-        <Button
-          borderRadius={15}
-          alignSelf="center"
-          variant="solid"
-          w="30%"
-          backgroundColor={Colors.purple}
-          onPress={() => signupHandler()}
-          isLoading={loading}
-        >
-          SignUp
-        </Button>
-      </Box>
-      <Box  flexDirection="row" alignItems="center" justifyContent="center">
-        <Text>Already have an account? </Text>
-        <Link
-          variant="link"
-          isUnderlined={false}
-          color="#FF0000"
-          bg="transparent"
-          onPress={() => {
-            navigate('Login');
-          }}>
-          {' '}
-          Login Here{' '}
-        </Link>
-      </Box>
+            <Box mt={5} flexDirection="row" justifyContent="space-evenly" alignItems="center">
+              <Radio.Group
+                alignSelf="center"
+                name="myRadioGroup"
+                accessibilityLabel="favorite number"
+                value={value}
+                onChange={() => { setValue("saler") }}
+              >
+                <Radio colorScheme="green" value="saler" my={1}>
+                  Seller
+                </Radio>
+
+              </Radio.Group>
+              <Radio.Group
+                name="myRadioGroup"
+                accessibilityLabel="favorite number"
+                value={value}
+                onChange={() => { setValue("purchaser") }}
+              >
+                <Radio colorScheme="green" value="purchaser" my={1}>
+                  Buyer
+                </Radio>
+
+              </Radio.Group>
+
+            </Box>
+          </FormControl>
+          <Button
+            borderRadius={15}
+            alignSelf="center"
+
+            variant="solid"
+            w="30%"
+            backgroundColor={Colors.green}
+            onPress={() => signupHandler()}
+            isLoading={loading}
+          >
+            SignUp
+          </Button>
+        </Box>
+        <Box flexDirection="row" alignItems="center" justifyContent="center" mt={10}>
+          <Text>Already have an account? </Text>
+          <Link
+            variant="link"
+            isUnderlined={false}
+            color="#FF0000"
+            bg="transparent"
+            onPress={() => {
+              navigate('Login');
+            }}>
+            {' '}
+            Login Here{' '}
+          </Link>
+        </Box>
+      </KeyboardAvoidingView>
+
     </View>
   );
 };
