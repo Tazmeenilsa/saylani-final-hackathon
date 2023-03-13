@@ -10,34 +10,32 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [value, setValue] = useState(null);
   const [loading, showLoading] = useState(false);
+
   const loginHandler = async () => {
     let data = {
       fullName: userName,
       email: email.toLowerCase(),
       password: password,
-      type: value
+      role: value
     };
     showLoading(true);
     LoginUser(data)
       .then((res) => {
         if (res?.success == true) {
+          showLoading(false)
+          if (value === "saler") {
+            reset("SellerBottom")
+          } else if (value === "purchaser") {
+            reset("Bottom")
+          }
           Toast.show({
             description: `Welcome ${res?.fullName}`
           });
-          showLoading(false);
-          reset("Bottom")
-          // if (setValue === "saler") {
-          //   reset("Bottom")
-          // } else {
-          //   reset("Bottom")
-          // }
-          // else{
-          //   reset("Bottom")
-          // }
           //  res.email == "admin@gmail.com"
           //     ? reset("AdminBottomTab")
           //     : reset("BottomTab");
         }
+    
       })
       .catch((err) => {
         console.log(err, "error");
@@ -47,6 +45,7 @@ export default function Login() {
         });
       });
   };
+
   return (
     <View
       style={{

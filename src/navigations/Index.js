@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/auth/Login';
 import Splash from '../screens/appintro/Splash';
 import Signup from '../screens/auth/Signup';
-import Drawer from './Drawer';
+import SellerBottom from '../navigations/SellerBottom'
 import { isReadyRef, navigationRef } from "./NavigationService";
 import BottomTab from './BottomTab';
 
@@ -35,7 +35,7 @@ const Navigation = () => {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
         <Stack.Screen name="Bottom" component={BottomTab} options={{ headerShown: false }} />
-        {/* <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/> */}
+        <Stack.Screen name="SellerBottom" component={SellerBottom} options={{headerShown:false}}/>
 
 
       </Stack.Navigator>

@@ -1,8 +1,8 @@
-const {apiService} =require("../../../utilities/apiService")
+import { apiService } from "../../../../utilities/apiService";
 
-const getAllProduct = async () => {
+const Uploadproducts= async (data) => {
     return new Promise((resolve, reject) => {
-        apiService('get', `/getProducts`,null).then(
+        apiService('post', '/productsCatalogue', data).then(
             res => {
                 let responseData = res.data;
                 resolve(responseData);
@@ -16,4 +16,5 @@ const getAllProduct = async () => {
         );
     })
 };
-export {getAllProduct}
+
+export { Uploadproducts };

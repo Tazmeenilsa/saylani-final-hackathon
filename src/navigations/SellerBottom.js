@@ -4,9 +4,9 @@ import { Pressable, StyleSheet, View, Image } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Account from '../screens/main/Account';
-import Cart from '../screens/main/Cart';
-import Home from '../screens/main/Home';
-import Message from '../screens/main/Message';
+import AddItems from '../screens/main/Seller Screens/AddItems';
+import Home from '../screens/main/Seller Screens/Home';
+
 import Colors from '../utilities/Colors';
 const Tab = createBottomTabNavigator();
 
@@ -20,9 +20,8 @@ export default function BottomTab() {
                     tabBarHideOnKeyboard: true,
                     headerShown: false,
                 }}>
-                <Tab.Screen name="Home" component={Home} />
-                <Tab.Screen name="Message" component={Message} />
-                <Tab.Screen name="Cart" component={Cart} />
+                <Tab.Screen name="SellerHome" component={Home} />
+                <Tab.Screen name="AddItems" component={AddItems} />
                 <Tab.Screen name="Account" component={Account} />
             </Tab.Navigator>
         </View>
@@ -33,41 +32,29 @@ export default function BottomTab() {
 function MyTabBar({ state, descriptors, navigation }) {
 
     const renderIcon = (focused, routeName) => {
-        if (routeName.name === "Home")
+        if (routeName.name === "SellerHome")
             return focused == true ?
                 <Ionicons
                     name="md-home"
                     size={25}
-                  color={Colors.green}
+                    color={Colors.green}
                 /> :
                 <Ionicons
                     name="md-home"
-                    size={25}
-                   color="grey"
-                />
-        else if (routeName.name == "Message")
-            return focused == true ?
-                <MaterialCommunityIcons
-                    name="message-reply-text-outline"
-                    size={25}
-                    color={Colors.green}
-                />
-                :
-                <MaterialCommunityIcons
-                    name="message-reply-text-outline"
                     size={25}
                     color="grey"
                 />
-        else if (routeName.name == "Cart")
+        else if (routeName.name == "AddItems")
             return focused == true ?
                 <Ionicons
-                    name="cart-outline"
-                    size={25}
-                   color={Colors.green}
-                /> :
+                name="add-circle-outline"
+                size={25}
+                    color={Colors.green}
+                />
+                :
                 <Ionicons
-                    name="cart-outline"
-                    size={25}
+                name="add-circle-outline"
+                size={25}
                     color="grey"
                 />
         else if (routeName.name == "Account")
@@ -77,7 +64,7 @@ function MyTabBar({ state, descriptors, navigation }) {
                     size={25}
                     color={Colors.green}
                 />
-                
+
                 :
                 <Ionicons
                     name="person-outline"
@@ -117,7 +104,7 @@ function MyTabBar({ state, descriptors, navigation }) {
                             <View style={styles.iconContainer}>
                                 {renderIcon(isFocused, route)}
                             </View>
-                            <View style={[styles.tabBarIndicatorStyle, ]} />
+                            <View style={[styles.tabBarIndicatorStyle,]} />
                         </View>
                     </Pressable>
                 );

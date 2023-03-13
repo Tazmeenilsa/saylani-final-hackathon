@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { Text, Input, Stack, FormControl, Box, Link, Button, Toast, Radio, KeyboardAvoidingView } from 'native-base';
 import Colors from '../../utilities/Colors';
-import { goBack, navigate } from '../../navigations/NavigationService';
+import { goBack, navigate, reset } from '../../navigations/NavigationService';
 import { CreateUser } from './duck/operation';
 const Signup = ({ navigation }) => {
   const [userName, setUserName] = useState("")
@@ -10,6 +10,7 @@ const Signup = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [value, setValue] = useState(null);
+  console.log(value)
   const [loading, showLoading] = useState(false);
 
   const signupHandler = () => {
@@ -18,23 +19,26 @@ const Signup = ({ navigation }) => {
         fullName: userName,
         email: email.toLowerCase(),
         password: password,
-        type: value
+        role: value
 
       }
       showLoading(true)
       CreateUser(data)
         .then((res) => {
           if (res?.success == true) {
+            showLoading(false)
+            if (value === "saler") {
+              goBack()
+            } else if (value === "purchaser") {
+              goBack()
+            }
             Toast.show({
               description: "Account created successfully"
             })
-            showLoading(false)
-            if (setValue === "saler") {
-              goBack()
-            } else if (setValue === "purchaser") {
-              goBack()
-            }
-goBack()
+            console.log(value)
+
+
+
           }
         })
         .catch((err) => {

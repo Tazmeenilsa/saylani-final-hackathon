@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Mainheader from '../../components/Mainheader'
 import Feather from 'react-native-vector-icons/Feather'
 import Colors from '../../utilities/Colors'
@@ -12,6 +12,7 @@ const Home = () => {
   }, [])
   const getProducts = () => {
     getAllProduct().then((res) => setProductData(res))
+      .catch((err) => console.log(err))
   }
   return (
     <View style={{ backgroundColor: Colors.white, height: "100%" }}>
@@ -35,9 +36,9 @@ const Home = () => {
             data={productData}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={(item, i) => {
+            renderItem={({item}) => {
               return (
-                <Box mr='4' borderRadius={10} key={i}>
+                <Box mr='4' borderRadius={10} >
                   <Text >{item?.productCategory}</Text>
                   <Text>
                     {item?.productDescription}
@@ -61,6 +62,8 @@ const Home = () => {
                 </Box>
               )
             }}
+            keyExtractor={(item, index) => index.toString()}
+
           />
         </Box>
       </ScrollView>
